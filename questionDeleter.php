@@ -31,7 +31,7 @@ function deleteOldQuestions() {
 
             echo "currTime: ".$currTime."<br /> ";
             echo "timediff: ".($currTime - $time)."<br /> ";
-            if (($currTime - $time) > 180) {
+            if (($currTime - $time) > 12 * 60) {
                 $questionID = $arr['id'];
                 echo "YES <br /> ";
                 $db->query("DELETE FROM `questions` WHERE `questions`.`id` = '$questionID'");

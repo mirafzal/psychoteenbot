@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="40595fb6-8be2-4f67-b604-c93f21f0a5da" name="Default Changelist" comment="" />
+    <list default="true" id="40595fb6-8be2-4f67-b604-c93f21f0a5da" name="Default Changelist" comment="add timer for questions (admin panel)">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Texts.php" beforeDir="false" afterPath="$PROJECT_DIR$/Texts.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/adminbot.php" beforeDir="false" afterPath="$PROJECT_DIR$/adminbot.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/counter.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mybot.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/questionDeleter.php" beforeDir="false" afterPath="$PROJECT_DIR$/questionDeleter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/questions.php" beforeDir="false" afterPath="$PROJECT_DIR$/questions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/questions.txt" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,6 +37,10 @@
     <expand />
     <select />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
   <component name="ProjectId" id="1aXIXo2r4r9AHpzTrIhC7YZzyyv" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -33,13 +48,21 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
     <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
   </component>
   <component name="ServiceViewManager">
@@ -68,21 +91,34 @@
       <workItem from="1586876320579" duration="18789000" />
       <workItem from="1586965311617" duration="7000" />
       <workItem from="1586965430194" duration="29828000" />
+      <workItem from="1587194564845" duration="481000" />
+      <workItem from="1587195438193" duration="3266000" />
+      <workItem from="1587310940622" duration="143000" />
+      <workItem from="1587481654375" duration="1570000" />
+      <workItem from="1587483779576" duration="1170000" />
+      <workItem from="1587489460959" duration="669000" />
+      <workItem from="1587566055444" duration="14000" />
+      <workItem from="1587651206929" duration="860000" />
+      <workItem from="1587663231470" duration="2882000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add timer for questions (admin panel)" />
+    <option name="LAST_COMMIT_MESSAGE" value="add timer for questions (admin panel)" />
+  </component>
   <component name="WindowStateProjectService">
     <state x="275" y="23" key="#Deployment" timestamp="1586940381108">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="275" y="23" key="#Deployment/0.0.1366.728@0.0.1366.728" timestamp="1586940381108" />
-    <state x="275" y="23" key="#Options" timestamp="1586877275269">
+    <state x="275" y="23" key="#Options" timestamp="1587651275284">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="23" key="#Options/0.0.1366.728@0.0.1366.728" timestamp="1586877275269" />
+    <state x="275" y="23" key="#Options/0.0.1366.728@0.0.1366.728" timestamp="1587651275284" />
     <state x="275" y="23" key="#SQL_Dialects" timestamp="1586876896745">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -91,14 +127,26 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="275" y="23" key="#SQL_Resolution_Scopes/0.0.1366.728@0.0.1366.728" timestamp="1587037089069" />
-    <state x="275" y="23" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1586876950511">
+    <state x="275" y="23" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587483228662">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="23" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1586876950511" />
-    <state x="92" y="92" width="1182" height="544" key="DirDiffDialog" timestamp="1586877742570">
+    <state x="275" y="23" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1587483228662" />
+    <state x="363" y="101" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1587194971673">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="92" y="92" width="1182" height="544" key="DirDiffDialog/0.0.1366.728@0.0.1366.728" timestamp="1586877742570" />
+    <state x="363" y="101" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1366.728@0.0.1366.728" timestamp="1587194971673" />
+    <state x="308" y="0" key="CommitChangelistDialog2" timestamp="1587727284634">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="308" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1587727284634" />
+    <state x="129" y="55" key="DiffContextDialog" timestamp="1587204562301">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="129" y="55" key="DiffContextDialog/0.0.1366.728@0.0.1366.728" timestamp="1587204562301" />
+    <state x="92" y="92" width="1182" height="544" key="DirDiffDialog" timestamp="1587727096798">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="92" y="92" width="1182" height="544" key="DirDiffDialog/0.0.1366.728@0.0.1366.728" timestamp="1587727096798" />
     <state x="518" y="288" key="NewPhpFileDialog" timestamp="1587037031452">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -107,17 +155,29 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="184" y="7" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1586971882115" />
+    <state x="492" y="281" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1587204523788">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="492" y="281" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1587204523788" />
     <state x="476" y="95" key="ftp.server.browser" timestamp="1586877297401">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="476" y="95" key="ftp.server.browser/0.0.1366.728@0.0.1366.728" timestamp="1586877297401" />
+    <state x="395" y="155" key="git4idea.merge.GitPullDialog" timestamp="1587196729299">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="395" y="155" key="git4idea.merge.GitPullDialog/0.0.1366.728@0.0.1366.728" timestamp="1587196729299" />
+    <state x="553" y="257" key="publish.login" timestamp="1587651318581">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="553" y="257" key="publish.login/0.0.1366.728@0.0.1366.728" timestamp="1587651318581" />
     <state x="339" y="162" key="run.anything.popup" timestamp="1586980490311">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1586980490311" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1586969591883">
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1587482292685">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1586969591883" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1587482292685" />
   </component>
 </project>

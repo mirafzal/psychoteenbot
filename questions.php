@@ -57,7 +57,49 @@ function getAllQuestionsIds() {
     return $res;
 }
 
-function saveAnswer($id, $answer, $answer_chat_id, $answer_message_id) {
+function getQuestionsLeftTimes()
+{
+    global $db;
+
+    $result = $db->query("SELECT * FROM `questions`");
+
+    $times = [];
+
+    while ($arr = $result->fetch_assoc()) {
+        if (isset($arr['time'])) {
+            $hour = (int)($arr['time'][0] . $arr['time'][1]);
+            $minute = (int)($arr['time'][3] . $arr['time'][4]);
+            $time = $hour * 60 + $minute;
+
+            $currHour = (int)(date("H"));
+            $currMinute = (int)(date("i"));
+
+            if ($currHour - $hour < 0) {
+                $currHour += 24;
+            }
+
+            $currTime = $currHour * 60 + $currMinute;
+
+            $times [] = (120 - ($currTime - $time)) . "";
+        }
+    }
+
+    return $times;
+}
+
+function getUsersCount()
+{
+    global $db;
+
+    $result = $db->query("SELECT COUNT(*) as 'userscount' FROM users");
+
+    $arr = $result->fetch_assoc();
+
+    return $arr['userscount'];
+}
+
+function saveAnswer($id, $answer, $answer_chat_id, $answer_message_id)
+{
     global $db;
 
     $answer = base64_encode($answer);
@@ -66,7 +108,8 @@ function saveAnswer($id, $answer, $answer_chat_id, $answer_message_id) {
                        `answer_message_id` = '$answer_message_id' WHERE `questions`.`id` = '$id'") or die("gg((");
 }
 
-function setRejected($id) {
+function setRejected($id)
+{
     global $db;
 
     $db->query("UPDATE `questions` SET `is_rejected` = '1' WHERE `questions`.`id` = '$id'") or die("gg((");

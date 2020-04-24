@@ -77,11 +77,24 @@ if (in_array($chatID, Admin::admins)) {
         sendWelcomeMessage();
     } elseif ($text == Texts::BTN_ANSWER) {
         showQuestionsList();
+    } elseif ($text == Texts::BNT_STATISTICS) {
+        showStatistics();
     } elseif ($text == Texts::BTN_CANCEL) {
         sendMainMenu();
     } elseif ($admin->getStep() == Steps::ADMIN_ANSWERING) {
         answerToUser();
     }
+}
+
+function showStatistics()
+{
+    global $telegramAdmin, $admin;
+
+    $text = "Всего пользователей: " . getUsersCount();
+//    $text.= "\n";
+//    $text.= "Всего вопросов: "
+    $content = array('chat_id' => $telegramAdmin->ChatID(), 'text' => $text);
+    $telegramAdmin->sendMessage($content);
 }
 
 function sendWelcomeMessage()
@@ -92,13 +105,15 @@ function sendWelcomeMessage()
 
     $option = [
         [$telegramAdmin->buildKeyboardButton(Texts::BTN_ANSWER)],
+        [$telegramAdmin->buildKeyboardButton(Texts::BNT_STATISTICS)],
     ];
     $keyb = $telegramAdmin->buildKeyBoard($option, $onetime = false, $resize = true);
     $content = array('chat_id' => $telegramAdmin->ChatID(), 'reply_markup' => $keyb, 'text' => Texts::TXT_WELCOME);
     $telegramAdmin->sendMessage($content);
 }
 
-function sendMainMenu() {
+function sendMainMenu()
+{
     global $telegramAdmin, $admin;
 
     $admin->setStep(Steps::QUESTION);
@@ -120,15 +135,15 @@ function showQuestionsList($messageID = 1, $edit = false)
         $telegramAdmin->sendMessage($content);
     } else {
         $option = [];
-        foreach (getAllQuestionsIds() as $id) {
+        $times = getQuestionsLeftTimes();
+        foreach (getAllQuestionsIds() as $i => $id) {
             if (getData($id)[AdminTableKeys::IS_ANSWERED]) {
                 $option[] = [$telegramAdmin->buildInlineKeyBoardButton($id . " (Ответ дан)", $url = "", $callback_data = "gg" . $id)];
             } elseif (getData($id)[AdminTableKeys::IS_REJECTED]) {
                 $option[] = [$telegramAdmin->buildInlineKeyBoardButton($id . " (Некорректный)", $url = "", $callback_data = "gg" . $id)];
             } else {
-                $option[] = [$telegramAdmin->buildInlineKeyBoardButton($id . "", $url = "", $callback_data = "gg" . $id)];
+                $option[] = [$telegramAdmin->buildInlineKeyBoardButton($id . " (" . $times[$i] . " минут)", $url = "", $callback_data = "gg" . $id)];
             }
-
         }
         $keyb = $telegramAdmin->buildInlineKeyBoard($option);
         if (!$edit) {
@@ -176,10 +191,10 @@ function showChosenQuestion($id, $messageID)
     if (strpos($question, "voiceMessage") !== false) {
         $voiceFileID = substr($question, 12);
         sendVoice($voiceFileID, $telegramAdmin->ChatID(), true,
-            "Пол: ".$gender."\nВозраст: ".$age."\nПредпочитаемый тип ответа: ".$user->getAnswerType(), $keyb);
+            "Пол: " . $gender . "\nВозраст: " . $age . "\nПредпочитаемый тип ответа: " . $user->getAnswerType(), $keyb);
     } else {
         $content = array('chat_id' => $telegramAdmin->ChatID(), 'message_id' => $messageID, 'reply_markup' => $keyb,
-            'text' => "Пол: ".$gender."\nВозраст: ".$age."\nПредпочитаемый тип ответа: ".$user->getAnswerType()."\n". Texts::TXT_QUESTION . $question);
+            'text' => "Пол: " . $gender . "\nВозраст: " . $age . "\nПредпочитаемый тип ответа: " . $user->getAnswerType() . "\n" . Texts::TXT_QUESTION . $question);
         $telegramAdmin->editMessageText($content);
     }
 
@@ -207,7 +222,7 @@ function answerToUser()
     } elseif ($telegramAdmin->getData()['message']['voice'] != null) {
         $isText = false;
         downloadFile($telegramAdmin->getData()['message']['voice']['file_id']);
-        $voiceFileIDAnswer = "voiceMessage".$telegramAdmin->getData()['message']['voice']['file_id'];
+        $voiceFileIDAnswer = "voiceMessage" . $telegramAdmin->getData()['message']['voice']['file_id'];
         saveAnswer($questionId, $voiceFileIDAnswer, $telegramAdmin->ChatID(), $user->getLastMessageId());
     }
     if ($isText) {
@@ -218,11 +233,11 @@ function answerToUser()
             $telegramUser->sendMessage($content);
             sendVoice($voiceFileID, $userChatID, false);
             $content = array('chat_id' => $userChatID,
-                'text' => Texts::TXT_ANSWER_READY_2.$telegramAdmin->Text());
+                'text' => Texts::TXT_ANSWER_READY_2 . $telegramAdmin->Text());
             $telegramUser->sendMessage($content);
         } else {
             $content = array('chat_id' => $userChatID,
-                'text' => Texts::TXT_ANSWER_READY_1.$question.Texts::TXT_ANSWER_READY_2.$telegramAdmin->Text());
+                'text' => Texts::TXT_ANSWER_READY_1 . $question . Texts::TXT_ANSWER_READY_2 . $telegramAdmin->Text());
             $telegramUser->sendMessage($content);
         }
     } else {
@@ -239,7 +254,7 @@ function answerToUser()
             sendVoice($voiceFileIDAnswer, $userChatID, false);
         } else {
             $content = array('chat_id' => $userChatID,
-                'text' => Texts::TXT_ANSWER_READY_1.$question.Texts::TXT_ANSWER_READY_2);
+                'text' => Texts::TXT_ANSWER_READY_1 . $question . Texts::TXT_ANSWER_READY_2);
             $telegramUser->sendMessage($content);
             sendVoice($voiceFileIDAnswer, $userChatID, false);
         }
@@ -283,7 +298,7 @@ function beginAnswer($messageID)
     $age = $user->getAge();
 
     $content = array('chat_id' => $telegramAdmin->ChatID(), 'message_id' => $messageID,
-        'text' => "Пол: ".$gender."\nВозраст: ".$age."\nПредпочитаемый тип ответа: ".$user->getAnswerType()."\n". Texts::TXT_QUESTION . $question);
+        'text' => "Пол: " . $gender . "\nВозраст: " . $age . "\nПредпочитаемый тип ответа: " . $user->getAnswerType() . "\n" . Texts::TXT_QUESTION . $question);
     $telegramAdmin->editMessageText($content);
 
     $option = [
@@ -319,11 +334,12 @@ function rejectQuestion($messageID)
     $admin->setAnsweringQuestionId(0);
 }
 
-function sendVoice($file_id, $chatID, $toAdmin, $caption = "", $keyb = "") {
+function sendVoice($file_id, $chatID, $toAdmin, $caption = "", $keyb = "")
+{
     global $bot_admin_token, $bot_user_token;
 
     $botToken = $toAdmin ? $bot_admin_token : $bot_user_token;
-    $file = ''.$_SERVER['DOCUMENT_ROOT']."/audios/".$file_id.".oga";
+    $file = '' . $_SERVER['DOCUMENT_ROOT'] . "/audios/" . $file_id . ".oga";
     $mime = mime_content_type($file);
     $info = pathinfo($file);
     $name = $info['basename'];
@@ -340,8 +356,8 @@ function sendVoice($file_id, $chatID, $toAdmin, $caption = "", $keyb = "") {
         $data["reply_markup"] = $keyb;
     }
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot".$botToken."/sendVoice");
-    curl_setopt($ch, CURLOPT_POST,1);
+    curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot" . $botToken . "/sendVoice");
+    curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
     $result = curl_exec($ch);
     if (curl_errno($ch)) {
@@ -349,15 +365,17 @@ function sendVoice($file_id, $chatID, $toAdmin, $caption = "", $keyb = "") {
     } else {
         echo 'uraa';
     }
-    curl_close ($ch);
+    curl_close($ch);
 }
-function downloadFile($file_id) {
+
+function downloadFile($file_id)
+{
     global $bot_admin_token, $telegramAdmin;
     $dir_to_save = "audios/";
-    $downloadLink = "https://api.telegram.org/file/bot".$bot_admin_token."/".$telegramAdmin->getFile($file_id)['result']['file_path'];
+    $downloadLink = "https://api.telegram.org/file/bot" . $bot_admin_token . "/" . $telegramAdmin->getFile($file_id)['result']['file_path'];
     if (!is_dir($dir_to_save)) {
         mkdir($dir_to_save);
     }
-    file_put_contents($dir_to_save.$file_id.".oga",
+    file_put_contents($dir_to_save . $file_id . ".oga",
         file_get_contents($downloadLink));
 }
